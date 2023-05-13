@@ -1,0 +1,45 @@
+--- a/target/linux/ramips/dts/mt7628an_tplink_tl-wr840n-v5.dts
++++ b/target/linux/ramips/dts/mt7628an_tplink_tl-wr840n-v5.dts
+@@ -48,9 +48,9 @@
+ 	status = "okay";
+ 
+ 	flash@0 {
+-		compatible = "jedec,spi-nor";
++		compatible = "winbond,w25q128", "jedec,spi-nor";
+ 		reg = <0>;
+-		spi-max-frequency = <10000000>;
++		spi-max-frequency = <104000000>;
+ 
+ 		partitions {
+ 			compatible = "fixed-partitions";
+@@ -66,12 +66,12 @@
+ 			partition@20000 {
+ 				compatible = "tplink,firmware";
+ 				label = "firmware";
+-				reg = <0x20000 0x3d0000>;
++				reg = <0x20000 0xfd0000>;
+ 			};
+ 
+-			factory: partition@3f0000 {
++			factory: partition@ff0000 {
+ 				label = "factory";
+-				reg = <0x3f0000 0x10000>;
++				reg = <0xff0000 0x10000>;
+ 				read-only;
+ 			};
+ 		};
+--- a/target/linux/ramips/image/mt76x8.mk
++++ b/target/linux/ramips/image/mt76x8.mk
+@@ -674,10 +674,10 @@ TARGET_DEVICES += tplink_tl-wr840n-v4
+ 
+ define Device/tplink_tl-wr840n-v5
+   $(Device/tplink-v2)
+-  IMAGE_SIZE := 3904k
++  IMAGE_SIZE := 16192k
+   DEVICE_MODEL := TL-WR840N
+   DEVICE_VARIANT := v5
+-  TPLINK_FLASHLAYOUT := 4Mmtk
++  TPLINK_FLASHLAYOUT := 16Mmtk
+   TPLINK_HWID := 0x08400005
+   TPLINK_HWREVADD := 0x5
+   IMAGES := sysupgrade.bin
